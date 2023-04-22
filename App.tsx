@@ -9,7 +9,7 @@ import {
 import theme from "./src/styles/theme";
 
 import { Groups } from "@screens/Groups";
-import { Loading } from "@screens/Loading";
+import { Loading } from "@components/Loading";
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
