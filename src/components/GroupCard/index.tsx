@@ -11,7 +11,7 @@ export function GroupCard({ title, ...rest }: HighlightProps) {
 
   return (
     <Container {...rest}>
-      <Icon size={32} color={theme.COLORS.WHITE} weight="fill" />
+      <Icon size={32} color={theme.COLORS.GREEN_500} weight="fill" />
 
       <Title>{title}</Title>
     </Container>
