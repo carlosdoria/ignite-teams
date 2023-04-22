@@ -1,5 +1,5 @@
 import { TouchableOpacityProps } from "react-native";
-import { useTheme } from "styled-components";
+import { useTheme } from "styled-components/native";
 import { Container, Icon, Title } from "./styles";
 
 type HighlightProps = TouchableOpacityProps & {

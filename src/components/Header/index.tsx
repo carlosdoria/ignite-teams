@@ -1,5 +1,5 @@
 import { BackButton, BackIcon, Container, Logo } from "./styles";
-import { useTheme } from "styled-components";
+import { useTheme } from "styled-components/native";
 
 import logoImg from "@assets/logo.png";
 
