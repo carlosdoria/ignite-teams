@@ -1,0 +1,67 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\yarn\bin\yarn.js add @expo-vector-icons
+
+PATH: 
+  C:\Users\Carlos Doria\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Carlos Doria\bin;C:\Program Files\Microsoft\jdk-11.0.18.10-hotspot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Users\Carlos Doria\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\Carlos Doria\AppData\Local\Microsoft\WindowsApps;C:\Users\Carlos Doria\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Carlos Doria\AppData\Local\Android\Sdk\platform-tools;C:\Program Files\apache-maven-3.6.3\bin;C:\Users\Carlos Doria\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\Carlos Doria\AppData\Local\Android\Sdk\emulator;C:\Users\Carlos Doria\AppData\Local\Android\Sdk\tools;C:\Users\Carlos Doria\AppData\Local\Android\Sdk\tools\bin;C:\Users\Carlos Doria\AppData\Local\Android\Sdk\platform-tools;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  16.19.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@expo-vector-icons: Request "https://registry.yarnpkg.com/@expo-vector-icons" returned a 405
+      at Request.params.callback [as _callback] (C:\Users\Carlos Doria\AppData\Roaming\nvm\v16.19.1\node_modules\yarn\lib\cli.js:66154:18)
+      at Request.self.callback (C:\Users\Carlos Doria\AppData\Roaming\nvm\v16.19.1\node_modules\yarn\lib\cli.js:140890:22)
+      at Request.emit (node:events:513:28)
+      at Request.<anonymous> (C:\Users\Carlos Doria\AppData\Roaming\nvm\v16.19.1\node_modules\yarn\lib\cli.js:141862:10)
+      at Request.emit (node:events:513:28)
+      at IncomingMessage.<anonymous> (C:\Users\Carlos Doria\AppData\Roaming\nvm\v16.19.1\node_modules\yarn\lib\cli.js:141784:12)
+      at Object.onceWrapper (node:events:627:28)
+      at IncomingMessage.emit (node:events:525:35)
+      at endReadableNT (node:internal/streams/readable:1358:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+
+npm manifest: 
+  {
+    "name": "ignite-teams",
+    "version": "1.0.0",
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+      "start": "expo start && PowerShell -Command \"Add-Type -AssemblyName System.Speech; (New-Object System.Speech.Synthesis.SpeechSynthesizer).Speak('completed')\"",
+      "android": "expo start --android",
+      "ios": "expo start --ios",
+      "web": "expo start --web",
+      "test": "PowerShell -Command \"Add-Type -AssemblyName System.Speech; (New-Object System.Speech.Synthesis.SpeechSynthesizer).Speak('completed')\""
+    },
+    "dependencies": {
+      "@expo-google-fonts/roboto": "^0.2.3",
+      "@types/react": "~18.0.27",
+      "expo": "~48.0.9",
+      "expo-font": "~11.1.1",
+      "expo-status-bar": "~1.4.4",
+      "phosphor-react-native": "^1.1.2",
+      "react": "18.2.0",
+      "react-native": "0.71.4",
+      "styled-components": "^5.3.9",
+      "typescript": "^4.9.4",
+      "react-native-svg": "13.4.0"
+    },
+    "devDependencies": {
+      "@babel/core": "^7.20.0",
+      "@types/styled-components": "^5.1.26",
+      "@types/styled-components-react-native": "^5.2.1",
+      "babel-plugin-module-resolver": "^5.0.0"
+    },
+    "private": true
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
