@@ -2,8 +2,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Groups } from "@screens/Groups";
 import { NewGroup } from "@screens/NewGroup";
 import { Players } from "@screens/Players";
+import { RootsTypes } from "src/@customTypes/navigation";
 
-const { Navigator, Screen } = createNativeStackNavigator();
+const { Navigator, Screen } = createNativeStackNavigator<RootsTypes>();
 
 export function AppRoutes() {
   return (
