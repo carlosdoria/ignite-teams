@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Alert } from "react-native";
 import { useTheme } from "styled-components/native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -10,6 +11,7 @@ import { Highlight } from "@components/Highlight";
 import { Container, Content, Icon } from "./styles";
 import { createGroup } from "@storage/group/createGroup";
 import { GROUP_COLLECTION } from "@storage/storageConfig";
+import { AppError } from "@utils/AppError";
 
 type NewGroupProps = {};
 
@@ -19,9 +21,21 @@ export function NewGroup({}: NewGroupProps) {
   const [newGroupState, setNewGroupState] = useState("");
 
   const handleNewGroup = async () => {
-    await createGroup(newGroupState);
+    try {
+      if (newGroupState.trim().length === 0) {
+        return Alert.alert("Novo grupo", "Informe um nome válido.");
+      }
 
-    navigation.navigate("players", { group: newGroupState });
+      await createGroup(newGroupState);
+
+      navigation.navigate("players", { group: newGroupState });
+    } catch (error) {
+      if (error instanceof AppError) {
+        Alert.alert("Novo grupo", error.message);
+      } else {
+        Alert.alert("Novo grupo", "Não foi possivel criar um novo grupo.");
+      }
+    }
   };
 
   return (

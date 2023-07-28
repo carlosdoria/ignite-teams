@@ -22,11 +22,15 @@ export function Groups() {
 
   const fetchGroups = async () => {
     try {
-      const storaredGroups = await getAllGroups(GROUP_COLLECTION);
+      const storaredGroups = await getAllGroups();
       setGroups(storaredGroups);
     } catch (error) {
       console.warn(error);
     }
+  };
+
+  const handleOpenGroup = (group: string) => {
+    navigation.navigate("players", { group });
   };
 
   useFocusEffect(
@@ -43,7 +47,9 @@ export function Groups() {
       <FlatList
         data={groups}
         keyExtractor={(item) => item}
-        renderItem={({ item }) => <GroupCard title={item} />}
+        renderItem={({ item }) => (
+          <GroupCard title={item} onPress={() => handleOpenGroup(item)} />
+        )}
         contentContainerStyle={groups.length === 0 && { flex: 1 }}
         ListEmptyComponent={<ListEmpty message="Cadraste a primeira turma" />}
       />
