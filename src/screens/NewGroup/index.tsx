@@ -8,6 +8,8 @@ import { Button } from "@components/Button";
 import { Highlight } from "@components/Highlight";
 
 import { Container, Content, Icon } from "./styles";
+import { createGroup } from "@storage/group/createGroup";
+import { GROUP_COLLECTION } from "@storage/storageConfig";
 
 type NewGroupProps = {};
 
@@ -16,7 +18,9 @@ export function NewGroup({}: NewGroupProps) {
   const navigation = useNavigation();
   const [newGroupState, setNewGroupState] = useState("");
 
-  const handleNewGroup = () => {
+  const handleNewGroup = async () => {
+    await createGroup(newGroupState);
+
     navigation.navigate("players", { group: newGroupState });
   };
 
