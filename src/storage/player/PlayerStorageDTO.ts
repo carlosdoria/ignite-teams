@@ -1,1 +1,4 @@
-export type PlayerStorageDTO = {};
+export type PlayerStorageDTO = {
+  name: string;
+  team: string;
+};
