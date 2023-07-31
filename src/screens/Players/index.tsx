@@ -1,8 +1,10 @@
-import { useState } from "react";
-import { FlatList, Alert } from "react-native";
+import { useEffect, useState, useRef } from "react";
+import { FlatList, Alert, TextInput } from "react-native";
 import { useRoute } from "@react-navigation/native";
 
+import { PlayerStorageDTO } from "@storage/player/PlayerStorageDTO";
 import { addPlayerStorage } from "@storage/player/addPlayerByGroup";
+import { getPlayerByGroupAndTeam } from "@storage/player/getPlayerByGroupAndTeam";
 
 import { Header } from "@components/Header";
 import { Highlight } from "@components/Highlight";
@@ -13,8 +15,9 @@ import { PlayerCard } from "@components/PlayerCard";
 import { ListEmpty } from "@components/ListEmpty";
 import { Button } from "@components/Button";
 
-import { Container, Form, HeaderList, NumbersOfPlayers } from "./styles";
 import { AppError } from "@utils/AppError";
+
+import { Container, Form, HeaderList, NumbersOfPlayers } from "./styles";
 
 type PlayersProps = {};
 type IRouteParams = {
@@ -25,10 +28,12 @@ export function Players({}: PlayersProps) {
   const route = useRoute();
   const { group } = route?.params as IRouteParams;
 
-  const [selectedTeam, setSelectedTeam] = useState("Time A");
+  const [selectedTeamState, setSelectedTeamState] = useState("Time A");
   const [filters, setFilters] = useState(["Time A", "Time B"]);
-  const [players, setPlayerss] = useState(["Rodrigo ", "Vini"]);
+  const [playersState, setPlayersState] = useState<PlayerStorageDTO[]>([]);
   const [newPlayerState, setNewPlayerState] = useState("");
+
+  const newPlayerNameInputRef = useRef<TextInput>(null);
 
   const handleAddPlayer = async () => {
     try {
@@ -38,10 +43,15 @@ export function Players({}: PlayersProps) {
 
       const newPlayer = {
         name: newPlayerState,
-        team: selectedTeam,
+        team: selectedTeamState,
       };
 
       await addPlayerStorage(newPlayer, group);
+
+      newPlayerNameInputRef.current?.blur();
+
+      setNewPlayerState("");
+      fetchGetPlayerByTeam();
     } catch (error) {
       if (error instanceof AppError) {
         Alert.alert("Novo player", error.message);
@@ -50,6 +60,23 @@ export function Players({}: PlayersProps) {
       }
     }
   };
+
+  const fetchGetPlayerByTeam = async () => {
+    try {
+      const storagedPlayers = await getPlayerByGroupAndTeam(
+        group,
+        selectedTeamState
+      );
+
+      setPlayersState(storagedPlayers);
+    } catch (error) {
+      Alert.alert("Jogador", "Não foi possivel cadastrar o jogador no time.");
+    }
+  };
+
+  useEffect(() => {
+    fetchGetPlayerByTeam();
+  }, [selectedTeamState]);
 
   return (
     <Container>
@@ -62,9 +89,13 @@ export function Players({}: PlayersProps) {
 
       <Form>
         <Input
+          inputRef={newPlayerNameInputRef}
           placeholder="Nome da pessoa"
           autoCorrect={false}
+          value={newPlayerState}
           onChangeText={setNewPlayerState}
+          onSubmitEditing={handleAddPlayer}
+          returnKeyType="done"
         />
 
         <ButtonIcon icon="add" onPress={handleAddPlayer} />
@@ -78,25 +109,25 @@ export function Players({}: PlayersProps) {
           renderItem={({ item }) => (
             <Filter
               title={item}
-              isActive={item === selectedTeam}
-              onPress={() => setSelectedTeam(item)}
+              isActive={item === selectedTeamState}
+              onPress={() => setSelectedTeamState(item)}
             />
           )}
         />
 
-        <NumbersOfPlayers>{players.length}</NumbersOfPlayers>
+        <NumbersOfPlayers>{playersState?.length}</NumbersOfPlayers>
       </HeaderList>
 
       <FlatList
-        data={players}
-        keyExtractor={(item) => item}
+        data={playersState}
+        keyExtractor={(item) => item.name}
         showsVerticalScrollIndicator
         contentContainerStyle={[
           { paddingBottom: 100 },
-          players.length >= 0 && { flex: 1 },
+          playersState?.length >= 0 && { flex: 1 },
         ]}
         renderItem={({ item }) => (
-          <PlayerCard name={item} onRemove={() => {}} />
+          <PlayerCard name={item.name} onRemove={() => {}} />
         )}
         ListEmptyComponent={() => (
           <ListEmpty message="Não há pessoas nesse time." />
