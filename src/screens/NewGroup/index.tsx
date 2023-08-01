@@ -23,7 +23,7 @@ export function NewGroup({}: NewGroupProps) {
   const handleNewGroup = async () => {
     try {
       if (newGroupState.trim().length === 0) {
-        return Alert.alert("Novo grupo", "Informe um nome válido.");
+        return Alert.alert("Nova turma", "Informe um nome válido.");
       }
 
       await createGroup(newGroupState);
@@ -31,9 +31,9 @@ export function NewGroup({}: NewGroupProps) {
       navigation.navigate("players", { group: newGroupState });
     } catch (error) {
       if (error instanceof AppError) {
-        Alert.alert("Novo grupo", error.message);
+        Alert.alert("Nova turma", error.message);
       } else {
-        Alert.alert("Novo grupo", "Não foi possivel criar um novo grupo.");
+        Alert.alert("Nova turma", "Não foi possivel criar uma nova turma.");
       }
     }
   };
@@ -46,7 +46,7 @@ export function NewGroup({}: NewGroupProps) {
 
         <Highlight
           title="Nova turma"
-          subtitle="Crie a turma para adicionar pessoas"
+          subtitle="Crie uma turma para adicionar jogadores"
         />
 
         <Input

@@ -3,7 +3,6 @@ import { PLAYER_COLLECTION } from "@storage/storageConfig";
 import { AppError } from "@utils/AppError";
 import { PlayerStorageDTO } from "./PlayerStorageDTO";
 import { getPlayersByGroup } from "./getPlayersByGroup";
-import App from "App";
 
 export const addPlayerStorage = async (
   newPlayer: PlayerStorageDTO,
