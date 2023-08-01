@@ -10,11 +10,12 @@ import { Button } from "@components/Button";
 
 import { Container } from "./styles";
 import { getAllGroups } from "@storage/group/getAllGroups";
-import { GROUP_COLLECTION } from "@storage/storageConfig";
+import { Loading } from "@components/Loading";
 export function Groups() {
   const navigation = useNavigation();
 
   const [groups, setGroups] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleNewGroup = () => {
     navigation.navigate("new");
@@ -22,10 +23,13 @@ export function Groups() {
 
   const fetchGroups = async () => {
     try {
+      setIsLoading(true);
       const storaredGroups = await getAllGroups();
       setGroups(storaredGroups);
     } catch (error) {
       console.warn(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -43,18 +47,26 @@ export function Groups() {
     <Container>
       <Header />
 
-      <Highlight title="Turmas" subtitle="Jogue com a sua turma" />
-      <FlatList
-        data={groups}
-        keyExtractor={(item) => item}
-        renderItem={({ item }) => (
-          <GroupCard title={item} onPress={() => handleOpenGroup(item)} />
-        )}
-        contentContainerStyle={groups.length === 0 && { flex: 1 }}
-        ListEmptyComponent={<ListEmpty message="Cadraste a primeira turma" />}
-      />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <Highlight title="Turmas" subtitle="Jogue com a sua turma" />
+          <FlatList
+            data={groups}
+            keyExtractor={(item) => item}
+            renderItem={({ item }) => (
+              <GroupCard title={item} onPress={() => handleOpenGroup(item)} />
+            )}
+            contentContainerStyle={groups.length === 0 && { flex: 1 }}
+            ListEmptyComponent={
+              <ListEmpty message="Cadraste a primeira turma" />
+            }
+          />
 
-      <Button title="Criar nova turma" onPress={handleNewGroup} />
+          <Button title="Criar nova turma" onPress={handleNewGroup} />
+        </>
+      )}
     </Container>
   );
 }
